@@ -52,5 +52,10 @@ bool sphere::hit(
     }
     return false;
 }
+bool sphere::bounding_box(double t0, double t1, aabb& output_box) const {
+    output_box = aabb(  center-vec3(radius, radius, radius),
+                        center+vec3(radius, radius, radius));
+    return true;
+}
 
 #endif
