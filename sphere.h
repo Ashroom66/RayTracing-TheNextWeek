@@ -12,6 +12,7 @@ class sphere: public hittable {
     virtual bool hit(
         const ray& r, double tmin, double tmax, hit_record& rec
     ) const;
+    virtual bool bounding_box(double time0, double time1, aabb& output_box) const override;
     public:
     point3 center;
     double radius;
@@ -52,7 +53,7 @@ bool sphere::hit(
     }
     return false;
 }
-bool sphere::bounding_box(double t0, double t1, aabb& output_box) const {
+bool sphere::bounding_box(double time0, double time1, aabb& output_box) const {
     output_box = aabb(  center-vec3(radius, radius, radius),
                         center+vec3(radius, radius, radius));
     return true;

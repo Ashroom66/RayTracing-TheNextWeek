@@ -11,21 +11,23 @@ class aabb {
     point3 min() const {return _min;}
     point3 max() const {return _max;}
 
-    inline bool aabb::hit(const ray& r, double tmin, double tmax) const {
-        for (int a=0; a<3; a++) {
-            auto invD = 1.0 / r.direction()[a];
-            auto t0 = (min()[a] - r.origin()[a]) * invD;
-            auto t0 = (max()[a] - r.origin()[a]) * invD;
-            if (invD < 0.0) {std::swap(t0, t1);}
-            tmin = t0>tmin? t0 : tmin;
-            tmax = t1<tmax? t1 : tmax;
-            if (tmax <= tmin) {return false;}
-        }
-        return true;
+    inline bool hit(const ray& r, double tmin, double tmax) const {
+    for (int a=0; a<3; a++) {
+        auto invD = 1.0 / r.direction()[a];
+        auto t0 = (min()[a] - r.origin()[a]) * invD;
+        auto t1 = (max()[a] - r.origin()[a]) * invD;
+        if (invD < 0.0) {std::swap(t0, t1);}
+        tmin = t0>tmin? t0 : tmin;
+        tmax = t1<tmax? t1 : tmax;
+        if (tmax <= tmin) {return false;}
     }
+    return true;
+}
+    
     point3 _min;
     point3 _max;
-}
+};
+
 aabb surrounding_box(aabb box0, aabb box1) {
     point3 small(   fmin(box0.min().x(), box1.min().x()),
                     fmin(box0.min().y(), box1.min().y()),

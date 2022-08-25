@@ -43,7 +43,7 @@ bool hittable_list::hit(
     }
     return hit_anything;
 }
-bool hittable_list::bounding_box(double time0, time1, aabb& output_box) const {
+bool hittable_list::bounding_box(double time0, double time1, aabb& output_box) const {
     if (objects.empty()) {return false;}
 
     aabb temp_box;
