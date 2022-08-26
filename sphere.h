@@ -13,6 +13,14 @@ class sphere: public hittable {
         const ray& r, double tmin, double tmax, hit_record& rec
     ) const;
     virtual bool bounding_box(double time0, double time1, aabb& output_box) const override;
+    private:
+    static void get_sphere_uv(const point3& p, double& u, double& v) {
+        auto theta = asin(p.z());
+        auto phi = atan2(p.y(), p.x());
+        u = phi / (2*pi);
+        v = theta / pi;
+    }
+
     public:
     point3 center;
     double radius;
@@ -36,6 +44,7 @@ bool sphere::hit(
             rec.p = r.at(rec.t);
             vec3 outward_normal = (rec.p-center) / radius;
             rec.set_face_normal(r, outward_normal);
+            get_sphere_uv(outward_normal, rec.u, rec.v);
             rec.mat_ptr = mat_ptr;
             return true;
         } else {
@@ -46,6 +55,7 @@ bool sphere::hit(
                 rec.p = r.at(rec.t);
                 vec3 outward_normal = (rec.p-center) / radius;
                 rec.set_face_normal(r, outward_normal);
+                get_sphere_uv(outward_normal, rec.u, rec.v);
                 rec.mat_ptr = mat_ptr;
                 return true;
             }
