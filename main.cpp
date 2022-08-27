@@ -35,7 +35,7 @@ hittable_list random_scene() {
     auto ground_material = make_shared<checker_texture>(
         make_shared<solid_color>(0.2, 0.3, 0.1),
         make_shared<solid_color>(0.9, 0.9, 0.9));
-    world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
+    world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, make_shared<lambertian>(ground_material)));
     for (int a=-11; a<11; a++) {
         for (int b=-11; b<11; b++) {
             auto choose_mat = random_double();
