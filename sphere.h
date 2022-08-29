@@ -15,8 +15,8 @@ class sphere: public hittable {
     virtual bool bounding_box(double time0, double time1, aabb& output_box) const override;
     private:
     static void get_sphere_uv(const point3& p, double& u, double& v) {
-        auto theta = asin(p.z());
-        auto phi = atan2(p.y(), p.x());
+        auto theta = acos(-p.y());
+        auto phi = atan2(-p.z(), p.x()) + pi;
         u = phi / (2*pi);
         v = theta / pi;
     }
