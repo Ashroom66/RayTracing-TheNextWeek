@@ -28,6 +28,10 @@ inline double random_double(double min, double max) {
     // [min, max)の実数乱数を生成
     return min + (max-min)*random_double();
 }
+inline int random_int(int min, int max) {
+    // (min, min+1, ..., max)から整数をランダムに返す
+    return min+rand() % (max-min+1);
+}
 inline double clamp(double x, double min, double max) {
     if (x<min) {return min;}
     if (x>max) {return max;}

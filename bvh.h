@@ -36,10 +36,6 @@ bool bvh_node::hit(const ray& r, double tmin, double tmax, hit_record& rec) cons
     return hit_left || hit_right;
 }
 
-inline int random_int(int min, int max) {
-    // (min, min+1, ..., max)から整数をランダムに返す
-    return min+rand() % (max-min+1);
-}
 bvh_node::bvh_node( std::vector<shared_ptr<hittable>>& objects,
                     size_t start, size_t end, double time0, double time1) {
     int axis = random_int(0, 2);
