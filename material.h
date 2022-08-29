@@ -113,6 +113,6 @@ class diffuse_light : public material {
     }
     public:
     shared_ptr<texture> emit;
-}
+};
 
 #endif
