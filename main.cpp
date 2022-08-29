@@ -72,6 +72,9 @@ hittable_list random_scene() {
     return world;
 }
 
+hittable_list two_spheres() {
+    hittable_list objects;
+}
 
 int main() {
     const auto aspect_ratio = 16.0 / 9.0;
