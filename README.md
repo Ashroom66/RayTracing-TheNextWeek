@@ -39,3 +39,5 @@ two perlin spheres:
     - x,y,z要素でXORを取り、予め生成されている`ranfloat`にアクセス
 - permute(int* p, int i)関数は前半i個の要素をかき混ぜる
 - perlin_generate_permは0--(point_count-1)のインデックスをかき混ぜる
+
+- 補完してそれっぽいノイズを作る
