@@ -35,8 +35,9 @@ two perlin spheres:
 ## パーリンノイズ
 - `ranfloat`に予め生成した乱数列を格納
 - noise関数ではpoint3から特定の操作を施して疑似ノイズを生成する
-    - x,y,z要素それぞれ4倍し、0--255の範囲に収める
-    - x,y,z要素でXORを取り、予め生成されている`ranfloat`にアクセス
+    - (最初の実装)
+        - x,y,z要素それぞれ4倍し、下7bitをとる
+        - x,y,z要素でXORを取り、予め生成されている`ranfloat`にアクセス
 - permute(int* p, int i)関数は前半i個の要素をかき混ぜる
 - perlin_generate_permは0--(point_count-1)のインデックスをかき混ぜる
 
