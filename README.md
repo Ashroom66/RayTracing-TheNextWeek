@@ -13,11 +13,11 @@ random scene:
 
 ---
 
-<!-- two spheres:
+two spheres:
 
 ![](twoSpheres.png)
 
---- -->
+---
 
 ## 時空間
 - 日：シャッターの開閉時間 -> 開閉時刻
