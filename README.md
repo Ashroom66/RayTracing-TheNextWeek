@@ -31,6 +31,12 @@ earth:
 
 ---
 
+simple light:
+
+![](simpleLight.png)
+
+---
+
 ## 時空間
 - 日：シャッターの開閉時間 -> 開閉時刻
 - 日：`moving_sphere.h`に条件つきコンパイルの部分が無い
