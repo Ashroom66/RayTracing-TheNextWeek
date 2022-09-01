@@ -37,9 +37,15 @@ simple light:
 
 ---
 
-🆕 Cornell box:
+Cornell box:
 
 ![](cornellBox.png)
+
+---
+
+🆕 Cornell box with blocks of smoke:
+
+![](cornellSmoke.png)
 
 ---
 
