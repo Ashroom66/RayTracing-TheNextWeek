@@ -23,13 +23,53 @@ class bvh_node : public hittable {
     shared_ptr<hittable> left;
     shared_ptr<hittable> right;
     aabb box;
+};
+
+inline bool box_compare(
+    const shared_ptr<hittable> a, const shared_ptr<hittable> b, int axis
+) {
+    aabb box_a;class bvh_node : public hittable  {
+    public:
+        bvh_node();
+
+        bvh_node(const hittable_list& list, double time0, double time1)
+            : bvh_node(list.objects, 0, list.objects.size(), time0, time1)
+        {}
+
+        bvh_node(
+            const std::vector<shared_ptr<hittable>>& src_objects,
+            size_t start, size_t end, double time0, double time1);
+
+        virtual bool hit(
+            const ray& r, double t_min, double t_max, hit_record& rec) const override;
+
+        virtual bool bounding_box(double time0, double time1, aabb& output_box) const override;
+
+    public:
+        shared_ptr<hittable> left;
+        shared_ptr<hittable> right;
+        aabb box;
+};
+    aabb box_b;
+    if (!a->bounding_box(0, 0, box_a) || !b->bounding_box(0, 0, box_b)) {std::cerr << "No bounding box in bvh_node constructor.\n";}
+    return box_a.min().e[axis] < box_b.min().e[axis];
 }
 
-bool bvh_node::bounding_box(double time0, time1, aabb& output_box) const {
+bool box_x_compare (const shared_ptr<hittable> a, const shared_ptr<hittable> b) {
+    return box_compare(a, b, 0);
+}
+bool box_y_compare (const shared_ptr<hittable> a, const shared_ptr<hittable> b) {
+    return box_compare(a, b, 1);
+}
+bool box_z_compare (const shared_ptr<hittable> a, const shared_ptr<hittable> b) {
+    return box_compare(a, b, 2);
+}
+
+bool bvh_node::bounding_box(double time0, double time1, aabb& output_box) const {
     output_box = box;
     return true;
 }
-bool bvh_node::hit(const ray& r, double tmin, double tmax, hit_record& rec) const {
+bool bvh_node::hit(const ray& r, double t_min, double t_max, hit_record& rec) const {
     if (!box.hit(r, t_min, t_max)) {return false;}
     bool hit_left = left->hit(r, t_min, t_max, rec);
     bool hit_right = right->hit(r, t_min, t_max, rec);
@@ -51,7 +91,7 @@ bvh_node::bvh_node( std::vector<shared_ptr<hittable>>& objects,
             right = objects[start+1];
         } else {
             left = objects[start+1];
-            right = obejects[start];
+            right = objects[start];
         }
     } else {
         std::sort(objects.begin() + start, objects.begin() + end, comparator);
@@ -66,22 +106,4 @@ bvh_node::bvh_node( std::vector<shared_ptr<hittable>>& objects,
     box = surrounding_box(box_left, box_right);
 }
 
-inline bool box_compare(
-    const shared_ptr<hittable> a, const shared_ptr<hittable> b, int axis
-) {
-    aabb box_a;
-    aabb box_b;
-    if (!a->bounding_box(0, 0, box_a) || !b->bounding_box(0, 0, box_b)) {std::cerr << "No bounding box in bvh_node constructor.\n";}
-    return box_a.min().e[axis] < box_b.min().e[axis];
-}
-
-bool box_x_compare (const shared_ptr<hittable> a, const shared_ptr<hittable> b) {
-    return box_compare(a, b, 0);
-}
-bool box_y_compare (const shared_ptr<hittable> a, const shared_ptr<hittable> b) {
-    return box_compare(a, b, 1);
-}
-bool box_z_compare (const shared_ptr<hittable> a, const shared_ptr<hittable> b) {
-    return box_compare(a, b, 2);
-}
 #endif
